@@ -8,13 +8,17 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        configureViewAttributes()
     }
 
+    private func configureViewAttributes() {
+        self.title = "Top Songs"
+    }
 
 }
 
