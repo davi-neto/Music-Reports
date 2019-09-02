@@ -21,4 +21,12 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    func getDateIgnoringTime() -> Date? {
+        return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date())
+    }
+    
+    func getDateAdding(_ component: Calendar.Component, value: Int) -> Date? {
+        return Calendar.current.date(byAdding: component, value: value, to: self)
+    }
+    
 }

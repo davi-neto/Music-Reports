@@ -28,9 +28,15 @@ class HomeViewController: UITableViewController {
         let descriptor = NSSortDescriptor(key: MPMediaItemPropertyLastPlayedDate, ascending: false)
         let songsNSArray = NSArray(array: songs)
         let sortedSongs = songsNSArray.sortedArray(using: [descriptor]) as! [MPMediaItem]
-        for song in sortedSongs {
+        for song in filterSongsByLast7Days(sortedSongs) {
             print(song)
         }
+    }
+    
+    private func filterSongsByLast7Days(_ songs: [MPMediaItem]) -> [MPMediaItem] {
+        let date = Date().getDateIgnoringTime()
+        guard let lastWeek = date?.getDateAdding(.day, value: -7) else { return songs }
+        return songs.filter { $0.lastPlayedDate != nil && $0.lastPlayedDate! >= lastWeek }
     }
 
 }
