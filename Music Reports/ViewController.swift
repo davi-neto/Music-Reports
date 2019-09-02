@@ -27,9 +27,23 @@ class HomeViewController: UITableViewController {
         guard let songs = query.items else { return }
         let descriptor = NSSortDescriptor(key: MPMediaItemPropertyLastPlayedDate, ascending: false)
         let songsNSArray = NSArray(array: songs)
-        let sortedSongs = songsNSArray.sortedArray(using: [descriptor])
-        print(sortedSongs)
+        let sortedSongs = songsNSArray.sortedArray(using: [descriptor]) as! [MPMediaItem]
+        for song in sortedSongs {
+            print(song)
+        }
     }
 
+}
+
+extension MPMediaItem {
+    
+    override open var description: String {
+        let title = self.title ?? "No title"
+        let artist = self.artist ?? "No artist"
+        let lastPlayedString = self.lastPlayedDate != nil ? self.lastPlayedDate!.getSimpleString() : "No data"
+        let desc = "---------- SONG----------\n\(artist) - \(title)\nPlayed \(self.playCount) times, skipped \(self.skipCount). Last played on \(lastPlayedString)\n"
+        return desc
+    }
+    
 }
 
